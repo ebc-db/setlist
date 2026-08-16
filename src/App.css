@@ -1,0 +1,867 @@
+/* 変数定義（テーマカラー） */
+:root {
+  --primary: #f172a3; /* メインカラー */
+  --bg-main: #fffbfe; /* 背景色 */
+  --bg-card: #ffffff; /* カード背景色 */
+  --text-main: #1f2937; /* メインテキスト */
+  --text-sub: #6b7280; /* サブテキスト */
+  --border: #e5e7eb; /* 枠線 */
+  --radius: 8px; /* 角丸 */
+}
+
+/* ベースリセット */
+body {
+  margin: 0;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  line-height: 1.6;
+}
+* {
+  box-sizing: border-box;
+}
+
+/* レイアウト */
+.app-container {
+  max-width: 768px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+.main-content {
+  padding: 16px;
+  padding-bottom: 40px;
+}
+
+/* ヘッダー */
+.app-header {
+  background-color: var(--bg-card);
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.app-header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+.app-header a {
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+/* ライブリスト（カード表示） */
+.live-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 16px;
+}
+.live-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.live-card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+.live-card-member {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.live-card-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  color: var(--text-main);
+}
+.live-card-meta {
+  font-size: 0.85rem;
+  color: var(--text-sub);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* 詳細画面 */
+.detail-header {
+  margin-bottom: 24px;
+  padding: 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.detail-title {
+  font-size: 1.5rem;
+  margin: 0 0 12px 0;
+}
+.detail-member {
+  font-size: 1.1rem;
+  color: var(--primary);
+  font-weight: bold;
+  margin: 0 0 12px 0;
+}
+
+/* セットリスト */
+.setlist-section {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 16px;
+  margin-bottom: 24px;
+}
+.setlist {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+.setlist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.setlist li:last-child {
+  border-bottom: none;
+}
+.setlist a {
+  text-decoration: none;
+  color: var(--text-main);
+  display: block;
+}
+.setlist a:hover {
+  color: var(--primary);
+}
+/* 「本編」「アンコール」の区切り線デザイン === */
+.setlist-phase-title {
+  font-size: 1.05rem; /* 通常のテキストより少しだけ大きく */
+  font-weight: bold;
+  color: var(--text-main); /* はっきり読めるようにメインの文字色に */
+  margin: 12px 0 12px 0; /* 本編とアンコールの間にしっかり余白をとる */
+  text-align: left; /* 左寄せ */
+}
+
+/* 一番上の「本編」は上の余白をなくしてスッキリさせる */
+.setlist-phase-title:first-child {
+  margin-top: 0;
+}
+
+.setlist-phase-title::before {
+  margin-right: 16px; /* 文字の左側の線の隙間 */
+}
+.setlist-phase-title::after {
+  margin-left: 16px; /* 文字の右側の線の隙間 */
+}
+
+/* 曲番号のスタイル */
+.track-number {
+  font-weight: bold;
+  color: var(--primary);
+  min-width: 40px; /* 番号部分の幅を固定して、右側の曲名の開始位置を揃える */
+  flex-shrink: 0; /* 番号部分が潰れないようにする */
+}
+
+/* 曲内容部分のスタイル */
+.track-content {
+  flex-grow: 1; /* 残りの幅をすべて使う */
+}
+
+/* =========================================
+   検索・絞り込みフォーム (カード型)
+========================================= */
+
+.controls-wrapper {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 0 20px 0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.control-section {
+  margin-bottom: 24px;
+}
+
+.control-section .description {
+  font-size: 12px;
+  color: #666;
+  margin: 0 0 10px 0;
+}
+
+/* 各セクションのタイトル */
+.control-section h2 {
+  font-size: 16px;
+  color: #333;
+  margin: 0 0 12px 0;
+  border-bottom: 2px solid #34495e;
+  padding-bottom: 5px;
+}
+
+/* 検索ボックス */
+.search-wrapper {
+  position: relative;
+}
+
+.search-box {
+  width: 100%;
+  padding: 10px 35px 10px 15px;
+  box-sizing: border-box;
+  font-size: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
+  background-color: #fff;
+}
+.search-box:focus {
+  border-color: #34495e;
+  box-shadow: 0 0 6px rgba(52, 73, 94, 0.2);
+}
+
+/* クリアボタン「×」 */
+.clear-search-btn {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  padding: 0 10px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.clear-search-btn:hover {
+  color: #333;
+}
+
+/* 絞り込みボタン（ピル型） */
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.filter-btn {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background-color: #f5f5f5;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+.filter-btn:hover {
+  background-color: #e0e0e0;
+}
+.filter-btn.active {
+  background-color: #34495e; /* 選択時の色 */
+  color: #fff;
+  border-color: #34495e;
+}
+
+/* 年・都道府県のドロップダウン */
+.dropdown-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.year-selector {
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  color: #333;
+  background-color: #fff;
+  flex: 1;
+  min-width: 150px;
+  cursor: pointer;
+  outline: none;
+}
+.year-selector:focus {
+  border-color: #34495e;
+  box-shadow: 0 0 5px rgba(52, 73, 94, 0.25);
+}
+
+/* リセットボタン */
+.reset-section {
+  text-align: right; /* 右寄せ */
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border); /* 実線から破線にして重さを軽減 */
+}
+
+.reset-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #ffffff; /* 白背景 */
+  border: 1px solid var(--border);
+  color: var(--text-sub); /* 少し薄めの文字色で控えめに */
+  padding: 6px 16px;
+  border-radius: 20px; /* 他のボタンと合わせたピル型 */
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* ほんのり影をつけて押しやすく */
+  transition: all 0.2s ease;
+}
+
+.reset-btn:hover {
+  background-color: #f9fafb; /* ホバー時はごく薄いグレー */
+  border-color: #ccc;
+}
+
+/* タグのバッジスタイル */
+.tag-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  color: #000;
+  background-color: #e9ecef;
+  border: none;
+  font-weight: 500;
+  cursor: "pointer";
+}
+
+/* =========================================
+   セットリスト拡張機能用 (メドレー・注釈)
+========================================= */
+
+/* メドレー全体を少し強調したい場合は背景を敷くことも可能 */
+.medley-track {
+  position: relative;
+}
+.medley-label {
+  color: var(--primary);
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* トラック内の曲リスト（通常は1曲、メドレー時は複数） */
+.track-songs {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* 曲名と注釈を縦並び（下の段）にする */
+.song-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 8px 0; /* 通常の曲(li要素)と同じ高さを指定 */
+  border-bottom: 1px dashed var(--border); /* 曲の間に枠線を引く */
+}
+.song-item:first-child {
+  padding-top: 0; /* 上の余白は親(li)に任せる */
+}
+.song-item:last-child {
+  padding-bottom: 0; /* 下の余白は親(li)に任せる */
+  border-bottom: none; /* メドレー最後の枠線は、親(li)の区切り線に任せる */
+}
+
+/* 注釈のデザイン */
+.song-note {
+  font-size: 0.8rem; /* 普通の大きさ */
+  font-weight: normal; /* 普通の太さ */
+  color: var(--text-sub); /* 薄字（グレー系のテキスト色） */
+}
+
+/* =========================================
+   同名公演セクション
+========================================= */
+.related-lives-section {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 2px dashed var(--border);
+}
+
+.related-lives-title {
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: var(--text-main);
+  text-align: center;
+}
+
+/* =========================================
+   サジェスト（予測変換）リスト
+========================================= */
+.search-wrapper {
+  position: relative; /* リストの絶対配置の基準にするため、これが必要です */
+}
+
+.suggestions-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin: 4px 0 0 0;
+  padding: 0;
+  list-style: none;
+  z-index: 200; /* 他の要素より上に表示する */
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.suggestions-list li {
+  padding: 10px 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.2s;
+}
+
+.suggestions-list li:last-child {
+  border-bottom: none;
+}
+
+.suggestions-list li:hover {
+  background-color: #f3f4f6;
+}
+
+.suggestion-song {
+  font-size: 0.95rem;
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.suggestion-count {
+  font-size: 0.8rem;
+  color: var(--text-sub);
+}
+
+/* =========================================
+   楽曲ページ 統計情報
+========================================= */
+.song-stats {
+  display: flex;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border);
+}
+
+.stat-item {
+  flex: 1; /* 横幅を均等に3等分する */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ブロック内を中央揃えにする */
+  text-align: center;
+  border-right: 1px solid var(--border); /* 縦の区切り線を引く */
+  padding: 0 8px; /* 文字が線に近すぎないように余白をとる */
+}
+
+/* 最後の項目の右側の区切り線は消す */
+.stat-item:last-child {
+  border-right: none;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: var(--text-sub);
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--primary);
+  line-height: 1.2; /* 複数行になった場合でも綺麗に見えるように調整 */
+}
+
+.stat-sub {
+  font-size: 0.8rem;
+  color: var(--text-sub);
+  margin-top: 4px;
+}
+
+/* =========================================
+   リスト操作（件数とソート）
+========================================= */
+.list-header {
+  display: flex;
+  justify-content: space-between; /* 左右に振り分け */
+  align-items: center; /* 縦位置を中央揃え */
+  margin-bottom: 16px;
+}
+
+.result-count {
+  font-weight: bold;
+  color: var(--text-sub);
+}
+
+/* Flexboxの中でレイアウトが崩れないよう、下の余白をリセット */
+.list-header .result-count {
+  margin-bottom: 0;
+}
+
+.sort-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text-main);
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s;
+}
+
+.sort-toggle-btn:hover {
+  background-color: #f3f4f6;
+}
+
+/* =========================================
+   ハンバーガーメニュー & サイドバー
+========================================= */
+.hamburger-btn {
+  background: none;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -280px;
+  width: 250px;
+  height: 100vh;
+  background-color: var(--bg-card);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+  transition: left 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-menu.open {
+  left: 0;
+}
+
+.side-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  background-color: #f3f4f6;
+}
+
+.side-menu-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text-main);
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-sub);
+  display: flex;
+}
+
+.side-menu-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.side-menu-links a {
+  padding: 16px 20px;
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: bold;
+  border-bottom: 1px dashed var(--border);
+  transition: background-color 0.2s;
+}
+
+.side-menu-links a:hover {
+  background-color: #f9fafb;
+  color: var(--primary);
+}
+
+/* =========================================
+   ランキングテーブル
+========================================= */
+.ranking-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--bg-card);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius);
+  overflow: hidden; /* 角丸を適用するため */
+  border: 1px solid var(--border);
+}
+
+.ranking-table th,
+.ranking-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.ranking-table th {
+  background-color: #f3f4f6;
+  font-size: 0.9rem;
+  color: var(--text-sub);
+}
+
+.ranking-table tr:last-child td {
+  border-bottom: none;
+}
+
+.ranking-table tr:hover td {
+  background-color: #f9fafb;
+}
+
+/* 順位のカラーリング */
+.rank-1 {
+  color: #d4af37;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.rank-2 {
+  color: #9ca3af;
+  font-weight: bold;
+  font-size: 1.05rem;
+}
+.rank-3 {
+  color: #b45309;
+  font-weight: bold;
+  font-size: 1.05rem;
+}
+
+.song-link {
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: bold;
+}
+.song-link:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+/* =========================================
+   さらに表示ボタン
+========================================= */
+.load-more-container {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.load-more-btn {
+  background-color: #ffffff; /* 白背景 */
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.load-more-btn:hover {
+  background-color: #f9fafb;
+  border-color: #ccc;
+  color: var(--primary); /* ホバー時はメインカラー（インディゴ）に */
+}
+
+/* =========================================
+   トップへ戻るボタン
+========================================= */
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: #ffffff; /* アイコンの隙間から背景が透けないように白背景を敷く */
+  color: var(--primary); /* アイコンの色をメインカラーに設定 */
+  border: none;
+  border-radius: 50%; /* まん丸にする */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; /* アイコン自体の余白を使うため0 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* 少し強めの影で浮いているように見せる */
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+  z-index: 990; /* ヘッダーやメニューより下、コンテンツより上に配置 */
+}
+
+.scroll-to-top-btn:hover {
+  transform: translateY(-4px); /* ホバー時に少し上に浮き上がるアニメーション */
+  opacity: 0.9;
+}
+
+/* =========================================
+   スマホ用レスポンシブ調整
+========================================= */
+@media (max-width: 600px) {
+  body {
+    font-size: 0.9rem;
+  }
+  .main-content {
+    padding: 12px;
+  }
+  .app-header h1 {
+    font-size: 1.1rem;
+  }
+  .controls-wrapper {
+    padding: 16px;
+    margin: 10px 0;
+  }
+  .control-section h2 {
+    font-size: 14px;
+  }
+  .control-section .description {
+    font-size: 11px;
+  }
+  .search-box {
+    font-size: 14px;
+    padding: 8px 35px 8px 12px;
+  }
+  .filter-btn {
+    font-size: 12px;
+    padding: 5px 12px;
+  }
+  .year-selector {
+    font-size: 13px;
+  }
+  .reset-btn {
+    font-size: 0.8rem;
+    padding: 5px 12px;
+  }
+  .tag-badge {
+    font-size: 10px;
+  }
+  .live-card-title {
+    font-size: 1rem;
+  }
+  .live-card-member {
+    font-size: 0.8rem;
+  }
+  .live-card-meta {
+    font-size: 0.75rem;
+  }
+  .detail-header {
+    padding: 16px;
+  }
+  .detail-title {
+    font-size: 1.25rem;
+  }
+  .detail-member {
+    font-size: 0.95rem;
+  }
+  .setlist-section h3 {
+    font-size: 1.05rem;
+  }
+  .setlist li {
+    gap: 8px;
+  }
+  .setlist a {
+    font-size: 0.95rem;
+  }
+  .track-number {
+    min-width: 32px;
+    font-size: 0.85rem;
+  }
+  .medley-label {
+    font-size: 0.85rem;
+  }
+  .song-note {
+    font-size: 0.75rem;
+  }
+  .setlist-phase-title {
+    font-size: 0.95rem;
+  }
+  .song-stats {
+    flex-direction: column;
+    gap: 12px;
+    border-top: none;
+  }
+  .stat-item {
+    border-right: none;
+    border-bottom: 1px dashed var(--border);
+    padding: 8px 0;
+  }
+  .stat-item:last-child {
+    border-bottom: none;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+  }
+  .stat-value {
+    font-size: 1rem;
+  }
+  .stat-sub {
+    font-size: 0.75rem;
+  }
+  .sort-toggle-btn {
+    font-size: 0.8rem;
+    padding: 5px 12px;
+  }
+  .load-more-btn {
+    font-size: 0.85rem;
+    padding: 8px 20px;
+  }
+  .scroll-to-top-btn {
+    bottom: 16px;
+    right: 16px;
+  }
+}
