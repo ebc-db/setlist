@@ -12,7 +12,7 @@ import { SearchProvider } from "./context/SearchContext.tsx";
 function App() {
   return (
     <SearchProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/setlist">
         <div className="app-container">
           <Header />
           <main className="main-content">

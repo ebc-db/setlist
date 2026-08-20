@@ -8,7 +8,7 @@ export const useLives = () => {
 
   useEffect(() => {
     // publicディレクトリ直下のdata.csvを読み込む
-    Papa.parse<Live>("/data.csv", {
+    Papa.parse<Live>(`${import.meta.env.BASE_URL}data.csv`, {
       download: true,
       header: true,
       skipEmptyLines: true,

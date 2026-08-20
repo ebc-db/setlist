@@ -8,7 +8,7 @@ export const useTagColors = () => {
   useEffect(() => {
     const fetchTags = async () => {
       try {
-        const response = await fetch("/tags.csv");
+        const response = await fetch(`${import.meta.env.BASE_URL}tags.csv`);
         if (!response.ok) throw new Error("tags.csvの取得に失敗しました");
         const csvText = await response.text();
         Papa.parse(csvText, {
